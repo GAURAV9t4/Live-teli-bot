@@ -4,8 +4,7 @@ import json
 import os
 import re
 
-# Apna token yaha add karein
-TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TOKEN = '7310687696:AAEjsMbwh0zVWs4fWyH_2K9sRWJc6D_JYPU'
 bot = telebot.TeleBot(TOKEN)
 
 DATA_FILE = "links.json"
@@ -140,7 +139,7 @@ def process_post(message):
     db = load_data()
     saved_links = db.get("links", [])
 
-    # Filter links: Sirf non-telegram links ko duplicate check ke liye lenge
+    # Filter links: Sirf non-telegram links (jaise DiskWala/Terabox) ko duplicate check ke liye lenge
     content_links = [u for u in urls if "t.me" not in u.lower() and "telegram.me" not in u.lower()]
 
     is_duplicate = False
@@ -149,7 +148,7 @@ def process_post(message):
             is_duplicate = True
             break
 
-    # Main content link duplicate detection
+    # Agar main content link pehle se database me hai, tabhi poori post ko duplicate maana jayega
     if is_duplicate and content_links:
         try:
             bot.reply_to(message, "🚫 DELETE DUPLICATE LINK AND POST 🚫")
@@ -157,7 +156,7 @@ def process_post(message):
             pass
         return
 
-    # Naye content links save karein aur Telegram links replace karein
+    # Naye content links ko database me save karenge aur Telegram links ko replace karenge
     link_replaced = False
     processed_text = original_text
 
@@ -175,13 +174,13 @@ def process_post(message):
     post_number = db["post_count"]
     save_data(db)
 
-    # Telegram link replacement message
     if link_replaced:
         try:
-            bot.reply_to(message, "♻️ REPLACE WITH YOUR CHANNEL  LINK ♻️")
+            bot.reply_to(message, "♻️ REPLACE WITH YOUR CHANNEL LINK ♻️")
         except Exception:
             pass
 
+    # Header, Footer aur Post Number format taiyar karna
     formatting_prefix = f"📌 Post No: {post_number}\n\n"
     final_message = processed_text
 
@@ -228,4 +227,3 @@ def process_post(message):
 
 print("Smart Filter Bot chalu ho gaya hai...")
 bot.infinity_polling()
-    
