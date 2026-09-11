@@ -5,7 +5,7 @@ import os
 import re
 
 # Apna token yaha add karein
-TOKEN = '7310687696:AAEjsMbwh0zVWs4fWyH_2K9sRWJc6D_JYPU'
+TOKEN ='PASTE_YOUR_BOT_TOCKEN'
 bot = telebot.TeleBot(TOKEN)
 
 DATA_FILE = "links.json"
