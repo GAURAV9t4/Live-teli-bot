@@ -4,7 +4,7 @@ import json
 import os
 import re
 
-TOKEN = '7310687696:AAEjsMbwh0zVWs4fWyH_2K9sRWJc6D_JYPU'
+TOKEN = 'YOUR_TOKEN'
 bot = telebot.TeleBot(TOKEN)
 
 DATA_FILE = "links.json"
