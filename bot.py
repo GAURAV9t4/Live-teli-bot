@@ -49,7 +49,7 @@ def send_help(message):
         "/remove_channel [@channel] - Channel hatayein\n"
         "/set_mylink [URL] - Link replacement ke liye apna link set karein"
     )
-    bot.reply_to(message, help_text, parse_mode="Markdown")
+    bot.reply_to(message, help_text)
 
 @bot.message_handler(commands=['set_mylink', 'setmylink'])
 def set_mylink(message):
